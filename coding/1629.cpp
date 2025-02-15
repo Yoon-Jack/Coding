@@ -7,7 +7,7 @@ ll a, b, c; // a: 밑(base), b: 지수(exponent), c: 나눌 값(mod)
 
 // 분할 정복을 이용한 거듭제곱 함수
 ll go(ll a, ll b) {
-    if (b == 1) return a % c; // 기저 사례: b가 1이면 a를 c로 나눈 나머지를 반환
+     if (b == 1) return a % c; // 기저 사례: b가 1이면 a를 c로 나눈 나머지를 반환
 
     ll ret = go(a, b / 2); // 지수를 절반으로 줄여 재귀 호출
     ret = (ret * ret) % c;  // 계산된 값을 제곱하여 c로 나눈 나머지를 저장
