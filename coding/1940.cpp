@@ -3,8 +3,22 @@ using namespace std;
 
 int n, m, a[15001], cnt;  // n: 배열 크기, m: 목표 합, a: 입력 배열, cnt: 합이 m이 되는 쌍의 개수
 
-// 조합을 구하는 재귀 함수 (함수 선언 필요)
-void combi(int idx, vector<int>& v);
+// 조합을 이용해 2개의 숫자를 선택하는 함수
+void combi(int idx, vector<int>& v) {
+    if (v.size() == 2) {  // 두 개의 숫자를 선택했다면
+        int b = a[v[0]];
+        int c = a[v[1]];
+        if (b + c == m) cnt++;  // 두 숫자의 합이 m이면 cnt 증가
+        return;
+    }
+
+    // 현재 선택한 마지막 인덱스(idx) 이후의 숫자들을 선택하는 과정
+    for (int i = idx + 1; i < n; i++) {
+        v.push_back(i);   // 현재 인덱스를 추가
+        combi(i, v);      // 재귀 호출하여 다음 숫자 선택
+        v.pop_back();     // 백트래킹: 현재 선택을 취소하고 다음 경우를 탐색
+    }
+}
 
 int main() {
     ios_base::sync_with_stdio(false); // C++의 입출력 속도를 향상
@@ -34,19 +48,3 @@ int main() {
     return 0;
 }
 
-// 조합을 이용해 2개의 숫자를 선택하는 함수
-void combi(int idx, vector<int>& v) {
-    if (v.size() == 2) {  // 두 개의 숫자를 선택했다면
-        int b = a[v[0]];
-        int c = a[v[1]];
-        if (b + c == m) cnt++;  // 두 숫자의 합이 m이면 cnt 증가
-        return;
-    }
-
-    // 현재 선택한 마지막 인덱스(idx) 이후의 숫자들을 선택하는 과정
-    for (int i = idx + 1; i < n; i++) {
-        v.push_back(i);   // 현재 인덱스를 추가
-        combi(i, v);      // 재귀 호출하여 다음 숫자 선택
-        v.pop_back();     // 백트래킹: 현재 선택을 취소하고 다음 경우를 탐색
-    }
-}
